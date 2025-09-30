@@ -1,0 +1,33 @@
+// Módulo de validación
+const Validator = (() => {
+  const isEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const isNotEmpty = (value) => value.trim() !== '';
+  const isNumeric = (value) => /^\d+$/.test(value);
+
+  return {
+    validateField: (label, value, type) => {
+      switch (type) {
+        case 'email':
+          return isEmail(value) ? true : `${label} no es un correo válido`;
+        case 'text':
+          return isNotEmpty(value) ? true : `${label} no puede estar vacío`;
+        case 'number':
+          return isNumeric(value) ? true : `${label} debe ser numérico`;
+        default:
+          return `${label} tiene un tipo desconocido`;
+      }
+    }
+  };
+})();
+
+// Ejemplo de uso
+const campos = [
+  { label: 'Nombre', value: 'Román', type: 'text' },
+  { label: 'Correo', value: 'roman@example.com', type: 'email' },
+  { label: 'Edad', value: '21', type: 'number' }
+];
+
+campos.forEach(campo => {
+  const resultado = Validator.validateField(campo.label, campo.value, campo.type);
+  console.log(resultado === true ? `${campo.label} válido` : resultado);
+});

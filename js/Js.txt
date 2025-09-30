@@ -1,0 +1,36 @@
+// Módulo de control de acceso
+const AccessControl = (() => {
+  const roles = {
+    admin: ['crear', 'editar', 'eliminar', 'ver'],
+    editor: ['editar', 'ver'],
+    visitante: ['ver']
+  };
+
+  const tienePermiso = (rol, accion) => {
+    if (!roles[rol]) return false;
+    return roles[rol].includes(accion);
+  };
+
+  return {
+    verificarAcceso: (usuario, accion) => {
+      const resultado = tienePermiso(usuario.rol, accion);
+      return resultado
+        ? `✅ ${usuario.nombre} puede ${accion}`
+        : `❌ ${usuario.nombre} no tiene permiso para ${accion}`;
+    }
+  };
+})();
+
+// Ejemplo de uso
+const usuarios = [
+  { nombre: 'Román', rol: 'admin' },
+  { nombre: 'Luis', rol: 'editor' },
+  { nombre: 'Ana', rol: 'visitante' }
+];
+
+const accionSolicitada = 'eliminar';
+
+usuarios.forEach(usuario => {
+  const mensaje = AccessControl.verificarAcceso(usuario, accionSolicitada);
+  console.log(mensaje);
+});
