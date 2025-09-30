@@ -32,3 +32,6 @@ campos.forEach(campo => {
   console.log(resultado === true ? `${campo.label} válido` : resultado);
 });
 //prueba
+
+
+//REVISADO
