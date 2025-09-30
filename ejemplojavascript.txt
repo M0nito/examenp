@@ -31,3 +31,7 @@ campos.forEach(campo => {
   const resultado = Validator.validateField(campo.label, campo.value, campo.type);
   console.log(resultado === true ? `${campo.label} válido` : resultado);
 });
+//prueba
+
+
+//REVISADO
